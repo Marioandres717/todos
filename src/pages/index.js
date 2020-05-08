@@ -8,10 +8,10 @@ export default () => {
   const [status, setStatus] = useState("loading");
   const [todos, setTodos] = useState(null);
 
-  if (status !== "loading") return;
-
   useEffect(() => {
     let canceled = false;
+
+    if (status !== "loading") return;
 
     axios("/api/get-all-todos").then((result) => {
       if (canceled === true) return;
@@ -21,6 +21,8 @@ export default () => {
         console.error(result);
         return;
       }
+
+      console.log(result);
 
       setTodos(result.data.todos);
       setStatus("loaded");
